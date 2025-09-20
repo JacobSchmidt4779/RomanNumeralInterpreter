@@ -13,7 +13,7 @@ const string roman[] = { "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", 
 const int num[] = { 1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000 };
 //map<char, int> romanToInt = { {'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}};
 
-string romanConvert(int* n) {
+string romanConvert(int& n) {
 
     //string roman[] = {"I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"};
     //int num[] = {1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000};
@@ -23,14 +23,14 @@ string romanConvert(int* n) {
 
 
 
-    while (*n > 0) {
-        int temp = *n / num[i];
+    while (n > 0) {
+        int temp = n / num[i];
         while (temp > 0) {
             result += roman[i];
             --temp;
         }
 
-        *n = *n % num[i];
+        n = n % num[i];
 
         --i;
     }
@@ -63,58 +63,58 @@ string romanConvert(int* n) {
 //}
 
 int main() {
-    vector<int> nums;
-    fstream numbers("rand_ints.txt");
-    if (!numbers.is_open()) {
-        return 1;
-    }
-
-    fstream results;
-    results.open("results.txt", ios_base::app);
-    if (!results.is_open()) {
-        return 1;
-    }
-
-    string temp;
-    while (getline(numbers, temp)) {
-        nums.push_back(stoi(temp));
-    }
-    numbers.close();
-
-    auto start = chrono::high_resolution_clock::now();
-    auto stop = chrono::high_resolution_clock::now();
-    //chrono::microseconds duration;
-    chrono::microseconds total_duration(0);
-
-    start = chrono::high_resolution_clock::now();
-    for (int j = 0; j < 10000; ++j) {
-        
-        for (int i = 0; i < nums.size(); ++i) {
-            romanConvert(&nums[i]);
-        }
-        
-        /*duration = chrono::duration_cast<chrono::microseconds>(stop - start);
-        cout << duration << "\n";
-        total_duration += duration;*/
-    }
-    stop = chrono::high_resolution_clock::now();
-    total_duration = chrono::duration_cast<chrono::microseconds>(stop - start);
-    total_duration /= 10000;
-    string res_msg = "Pass by ptr    | Average duration: " + to_string(total_duration.count()) + "us\n";
-    results << res_msg;
-    results.close();
-    cout << res_msg;
-
-    return 0;
-
-    //cout << "Enter a number to be converted\n";
-    //int num;
-    //cin >> num;
-    //if (num < 1 || num > 3999) {
-    //    cout << "invalid number\n";
+    //vector<int> nums;
+    //fstream numbers("rand_ints.txt");
+    //if (!numbers.is_open()) {
+    //    return 1;
     //}
-    //else {
-    //    cout << romanConvert(num) + "\n";
+
+    //fstream results;
+    //results.open("results.txt", ios_base::app);
+    //if (!results.is_open()) {
+    //    return 1;
     //}
+
+    //string temp;
+    //while (getline(numbers, temp)) {
+    //    nums.push_back(stoi(temp));
+    //}
+    //numbers.close();
+
+    //auto start = chrono::high_resolution_clock::now();
+    //auto stop = chrono::high_resolution_clock::now();
+    ////chrono::microseconds duration;
+    //chrono::microseconds total_duration(0);
+
+    //start = chrono::high_resolution_clock::now();
+    //for (int j = 0; j < 1000; ++j) {
+    //    
+    //    for (int i = 0; i < nums.size(); ++i) {
+    //        romanConvert(nums[i]);
+    //    }
+    //    
+    //    /*duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+    //    cout << duration << "\n";
+    //    total_duration += duration;*/
+    //}
+    //stop = chrono::high_resolution_clock::now();
+    //total_duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+    //total_duration /= 1000;
+    //string res_msg = "Pass by ref    | Average duration: " + to_string(total_duration.count()) + "\n";
+    //results << res_msg;
+    //results.close();
+    //cout << res_msg;
+
     //return 0;
+
+    cout << "Enter a number to be converted\n";
+    int num;
+    cin >> num;
+    if (num < 1 || num > 3999) {
+        cout << "invalid number\n";
+    }
+    else {
+        cout << romanConvert(num) + "\n";
+    }
+    return 0;
 }
