@@ -12,10 +12,12 @@ endif()
 project ("RomanNumeralInterpreter")
 
 # Add source to this project's executable.
-add_executable (RomanNumeralInterpreter "RomanNumeralInterpreter.cpp" "RomanNumeralInterpreter.h")
+add_executable (RomanNumeralInterpreter "RomanNumeralInterpreter.cpp" )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET RomanNumeralInterpreter PROPERTY CXX_STANDARD 20)
 endif()
 
 # TODO: Add tests and install targets if needed.
+configure_file("rand_ints.txt" "${CMAKE_CURRENT_BINARY_DIR}/rand_ints.txt" COPYONLY)
+file(TOUCH "${CMAKE_CURRENT_BINARY_DIR}/results.txt")
